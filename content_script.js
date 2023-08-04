@@ -31,6 +31,14 @@ function blockElements(easyListRules) {
   });
 }
 
-console.log("Extension has been successfully loaded!")
-fetchEasyList().then((easyList) => blockElements(easyList));
-console.log("Test 1 2 3 ... ");
+function afterDOMLoaded() {
+  console.log("DOM loaded!");
+  fetchEasyList().then((easyList) => blockElements(easyList));
+  console.log("Test 1 2 3 ... ");
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', afterDOMLoaded);
+} else {
+  afterDOMLoaded();
+}
