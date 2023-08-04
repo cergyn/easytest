@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Attach to Chrome",
+        "port": 9222,
+        "request": "attach",
+        "type": "chrome",
+        "webRoot": "${workspaceFolder}/"
+      },
+      {
+        "type": "firefox",
+        "request": "launch",
+        "name": "Launch Firefox",
+        "reAttach": true,
+        "keepProfileChanges": true,
+        "profile": "dev",
+        "firefoxArgs": [
+          "-devtools"
+        ],
+        "addonPath": "${workspaceFolder}",
+        "pathMappings": [
+          {
+            "url": "moz-extension://18b56db1-8c67-45f4-8056-1be19305a193",
+            "path": "${workspaceFolder}"
+          }
+        ]
+      }
+    ]
+  }
+  
