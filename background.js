@@ -1,17 +1,4 @@
-/* eslint-disable no-undef */
 // background.js
-
-// we need to download and store easylist in local storage
-// we need to block elements based on easylist rules
-// we need to listen for new requests and block them if they match the rules
-// we will download easylist only once and store it in local storage
-const easyList = localStorage.getItem('easyList')
-if (!easyList) {
-  console.log("We don't have easyList in local storage! Fetching it...")
-  fetchEasyList().then((easyList) => {
-    localStorage.setItem('easyList', easyList)
-  })
-}
 
 // Helper function to fetch the EasyList
 function fetchEasyList () {
@@ -28,19 +15,28 @@ function fetchEasyList () {
       return null
     })
 }
+/*
+! for comments
+# for content filters
+@@ for exception filters
+|| for URL filters
+| for matching at the beginning or end of an address
+^ for marking separator characters
+$ for specifying filter options
+/ for using regular expressions
+## for cosmetic filters
+#@# for cosmetic filter exceptions
+#?# for advanced selectors
+#$# for snippet filters
+#@$# for snippet filter exceptions
+*/
 
-// Helper function to block URLs based on EasyList rules
-function blockUrls (easyListRules) {
-  if (!easyListRules) return
-
-  const urls = easyListRules
-    .split('\n')
-    .filter((rule) => rule.startsWith('||'))
-    .map((rule) => rule.slice(2))
-
-  urls.forEach((url) => {
-    console.log(`Blocked ${url}`)
-    blockedUrls.push(url)
+// we will download easylist only once and store it in local storage
+const easyList = localStorage.getItem('easyList')
+if (!easyList) {
+  console.log("We don't have easyList in local storage! Fetching it...")
+  fetchEasyList().then((easyList) => {
+    localStorage.setItem('easyList', easyList)
   })
 }
 
@@ -48,6 +44,7 @@ function blockUrls (easyListRules) {
 const blockedUrls = easyList.split('\n').filter((rule) => rule.startsWith('||')).map((rule) => rule.slice(2))
 
 // This event is fired when the extension is first installed.
+// eslint-disable-next-line no-undef
 chrome.runtime.onInstalled.addListener(function () {
   console.log('The extension has been installed!')
 })
@@ -96,6 +93,7 @@ function indexOfFilter (input, filter, startingPos) {
 }
 
 // This event is fired before a request is sent.
+// eslint-disable-next-line no-undef
 chrome.webRequest.onBeforeRequest.addListener(
   function (details) {
     for (let i = 0; i < blockedUrls.length; i++) {
@@ -109,6 +107,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 )
 
 // This event is fired when a message is sent from either an extension process (by runtime.sendMessage) or a content script (by tabs.sendMessage).
+// eslint-disable-next-line no-undef
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.message === 'getEasyListCosmetic') {
     sendResponse({ easyList: easyList.split('\n').filter((rule) => rule.startsWith('##')).map((rule) => rule.slice(2)) })
