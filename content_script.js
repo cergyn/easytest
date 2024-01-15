@@ -1,17 +1,3 @@
-// Helper function to fetch the EasyList
-async function fetchEasyList() {
-  try {
-    const response = await fetch("https://easylist.to/easylist/easylist.txt");
-    if (response.ok) {
-      return await response.text();
-    } else {
-      throw new Error("Failed to fetch EasyList.");
-    }
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
 
 // Helper function to block elements based on EasyList rules
 function blockElements(easyListRules) {
@@ -33,7 +19,12 @@ function blockElements(easyListRules) {
 
 function afterDOMLoaded() {
   console.log("DOM loaded!");
-  fetchEasyList().then((easyList) => blockElements(easyList));
+  // send a message to the background script and ask for the easyList
+  chrome.runtime.sendMessage({ message: "getEasyListCosmetic" }, (response) => {
+    console.log("Response from background script:");
+    console.log(response);
+    blockElements(response.easyList);
+  });
   console.log("Test 1 2 3 ... ");
 }
 
