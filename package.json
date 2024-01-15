@@ -1,0 +1,31 @@
+{
+  "name": "easytest",
+  "version": "1.0.0",
+  "description": "Example extension to use easylist filters",
+  "main": "background.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cergyn/easytest.git"
+  },
+  "keywords": [
+    "easylist",
+    "adblock",
+    "adblocker"
+  ],
+  "author": "Celal Ergün",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cergyn/easytest/issues"
+  },
+  "homepage": "https://github.com/cergyn/easytest#readme",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1"
+  }
+}
